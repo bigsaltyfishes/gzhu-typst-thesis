@@ -1,5 +1,5 @@
 // 利用 state 捕获摘要参数，并通过 context 传递给渲染函数
-#import "/utils/style.typ": 字号, 字体
+#import "../../utils/style.typ": 字号, 字体
 
 // 致谢内容
 #let acknowledgement-content = state("acknowledgement", [

@@ -1,3 +1,6 @@
+#import "@preview/cuti:0.3.0": show-cn-fakebold
+#show: show-cn-fakebold
+
 #let 字号 = (
   初号: 42pt,
   小初: 36pt,
@@ -23,10 +26,10 @@
   // 这一行分别是「新罗马体（有衬线英文字体）」、「思源宋体（简体）」、「思源宋体」、「宋体（Windows）」、「宋体（MacOS）」
   宋体: (
     (name: "Times New Roman", covers: "latin-in-cjk"),
+    "SimSun",
     "Source Han Serif SC",
     "Source Han Serif",
     "Noto Serif CJK SC",
-    "SimSun",
     "Songti SC",
     "STSongti",
   ),
@@ -35,10 +38,10 @@
   // 这一行分别是「Arial（无衬线英文字体）」、「思源黑体（简体）」、「思源黑体」、「黑体（Windows）」、「黑体（MacOS）」
   黑体: (
     (name: "Arial", covers: "latin-in-cjk"),
+    "SimHei",
     "Source Han Sans HW SC",
     "Source Han Sans",
     "Noto Sans CJK SC",
-    "SimHei",
     "Heiti SC",
     "STHeiti",
   ),
@@ -48,6 +51,7 @@
     (name: "Times New Roman", covers: "latin-in-cjk"),
     "KaiTi",
     "Kaiti SC",
+    "KaiTi_GB2312",
     "STKaiti",
     "FZKai-Z03S",
     "Noto Serif CJK SC",
@@ -76,12 +80,4 @@
     "Heiti SC",
     "STHeiti",
   ),
-)
-
-// 定义中山大学规范颜色
-// 参考 http://home3.sysu.edu.cn/sysuvi/content/zaisheng/b/C-1-5.jpg
-#let sysucolor = (
-  green: cmyk(100%, 0%, 100%, 60%),
-  red: cmyk(30%, 100%, 100%, 50%),
-  black: cmyk(0%, 0%, 0%, 100%),
 )

@@ -1,15 +1,13 @@
 // 利用 state 捕获摘要参数，并通过 context 传递给渲染函数
-#import "/utils/style.typ": 字号, 字体
+#import "../../utils/style.typ": 字号, 字体
 
 #let abstract-en-keywords = state("keywords-en", (
-  "Sun Yat-sen University",
+  "Guangzhou University",
   "thesis",
   "specification",
 ))
 #let abstract-en-content = state("abstract-en", [
-英文摘要及关键词内容应与中文摘要及关键词内容相同。中英文摘要及其关键词各置一页内。
-The English abstract and its keywords should be the same as the Chinese one. 
-Both Chinese and English should be in seperated pages.
+This is abstract in English. 外文摘要以200个左右实词为宜，摘要内容（小四号Times New Roman字体）每段开头留四个空字符
 ])
 #let abstract-en(
   keywords: (),
@@ -31,14 +29,14 @@ Both Chinese and English should be in seperated pages.
   show heading.where(level: 1): set heading(numbering: none)
 
   [
-    = ABSTRACT
-
-    #context abstract-en-content.final()
+    #set par(justify: true)
+    #text(size: 字号.四号)[*ABSTRACT　*]#context abstract-en-content.final()
 
     #v(1em)
 
     // 摘要正文下方另起一行顶格打印“关键词”款项，后加冒号，多个关键词以逗号分隔。
     // （标题“Keywords”加粗）
-    *Keywords:* #context abstract-en-keywords.final().join(", ")
+    #set par(justify: true)
+    #text(size: 字号.四号)[*KEY WORDS　*]#context abstract-en-keywords.final().join(", ")
   ]
 }

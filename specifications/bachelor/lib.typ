@@ -1,40 +1,39 @@
-#import "/specifications/bachelor/cover.typ": cover
-#import "/specifications/bachelor/titlepage.typ": titlepage
-#import "/specifications/bachelor/declaration.typ": declaration
-#import "/specifications/bachelor/abstract.typ": abstract, abstract-page
-#import "/specifications/bachelor/abstract-en.typ": abstract-en, abstract-en-page
-#import "/specifications/bachelor/appendix.typ": appendix, appendix-part
-#import "/specifications/bachelor/acknowledgement.typ": acknowledgement, acknowledgement-page
-
-#import "/utils/bilingual-bibliography.typ": bilingual-bibliography
-#import "/utils/custom-heading.typ": active-heading, heading-display, current-heading
-#import "/utils/style.typ": 字号, 字体, sysucolor
+#import "../../specifications/bachelor/cover.typ": cover
+#import "../../specifications/bachelor/abstract.typ": abstract, abstract-page
+#import "../../specifications/bachelor/abstract-en.typ": abstract-en, abstract-en-page
+#import "../../specifications/bachelor/appendix.typ": appendix, appendix-part
+#import "../../specifications/bachelor/acknowledgement.typ": acknowledgement, acknowledgement-page
+#import "../../utils/custom-numbering.typ": custom-numbering
+#import "../../utils/custom-cuti.typ": *
+#import "../../utils/bilingual-bibliography.typ": bilingual-bibliography
+#import "../../utils/custom-heading.typ": active-heading, heading-display, current-heading
+#import "../../utils/style.typ": 字号, 字体
 
 #import "@preview/numbly:0.1.0": numbly
 #import "@preview/numblex:0.1.1": circle_numbers
 #import "@preview/i-figured:0.2.4"
 
-// 中山大学本科生毕业论文（设计）写作与印制规范
-// 参考规范: https://spa.sysu.edu.cn/zh-hans/article/1744
+// 广州大学普通本科生毕业生毕业论文（设计）规范化要求
+// 参考规范: http://jwc.gzhu.edu.cn/__local/2/56/92/93F8B5CA22C0F5CF188CAE1F75D_841835B3_316E2.pdf?e=.pdf
 #let doc(
   // 毕业论文基本信息
   thesis-info: (
     // 论文标题，将展示在封面、扉页与页眉上
     // 多行标题请使用数组传入 `("thesis title", "with part next line")`，或使用换行符：`"thesis title\nwith part next line"`
-    title: ("中山大学本科生毕业论文（设计）", "写作与印制规范（2020-）"),
-    title-en: ("The Specification of Writting and Printing", "for SYSU thesis"),
+    title: "广州大学普通本科生毕业生毕业论文（设计）规范化要求 (2017-)",
+    title-en: "The Specification of Writting and Printing for GZHU thesis",
 
     // 论文作者信息：学号、姓名、院系、专业、指导老师
     author: (
       sno: "1xxxxxxx",
       name: "张三",
-      grade: "2024",
+      class: "某班级",
       department: "某学院",
       major: "某专业",
     ),
 
     // 指导老师信息，以`("name", "title")` 数组方式传入
-    supervisor: ("李四", "教授"),
+    supervisor: ("李四",),
 
     // 提交日期，默认为论文 PDF 生成日期
     submit-date: datetime.today(),
@@ -55,7 +54,7 @@
   // 论文内文各大部分的标题用“一、二…… （或1、2……）”， 次级标题为“（一）、（二）……（或
   // 1.1、2.1……）”，三级标题用“1、2……（或1.1.1、2.1.1……）”，四级标题用“（1）、（2）……
   //（或1.1.1.1、2.1.1.1……）”，不再使用五级以下标题。两类标题不要混编。
-  numbering: none,
+  numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
 
   // 双面模式，会加入空白页，便于打印
   twoside: false,
@@ -81,9 +80,9 @@
   thesis-info.author = thesis-info.at("author", default: default-author)
 
   let default-thesis-info = (
-    title: ("中山大学本科生毕业论文（设计）", "写作与印制规范"),
-    title-en: ("The Specification of Writting and Printing", "for SYSU thesis"),
-    supervisor: ("李四", "教授"),
+    title: "广州大学普通本科生毕业生毕业论文（设计）规范化要求",
+    title-en: "The Specification of Writting and Printing for GZHU thesis",
+    supervisor: ("李四",),
     submit-date: datetime.today(),
   )
   thesis-info = default-thesis-info + thesis-info
@@ -95,22 +94,14 @@
   )
   pages = default-pages + pages
 
-  // 文档元数据处理
-  if type(thesis-info.title) == str {
-    thesis-info.title = thesis-info.title.split("\n")
-  }
-  if type(thesis-info.title-en) == str {
-    thesis-info.title-en = thesis-info.title-en.split("\n")
-  }
-
   set document(
-    title: thesis-info.title.join(""),
+    title: thesis-info.title,
     author: thesis-info.author.name,
     // keywords: thesis-info.abstract.keywords,
   )
 
   // 纸张大小：A4。页边距：上边距25 mm，下边距20 mm，左右边距均为30 mm。
-  set page(paper: "a4", margin: (top: 25mm, bottom: 20mm, x: 30mm))
+  set page(paper: "a4", margin: (left: 3.0cm, right: 2.6cm, top: 2.54cm, bottom: 2.54cm))
 
   // 行距：1.5倍行距
   // 行距理解为 word 默认行距（1em * 120%）的1.5倍，由于目前尚未实现 [line-height 模
@@ -127,15 +118,16 @@
   // 论文内文各大部分的标题用“一、二…… （或1、2……）”， 次级标题为“（一）、（二）……（或
   // 1.1、2.1……）”，三级标题用“1、2……（或1.1.1、2.1.1……）”，四级标题用“（1）、（2）……
   //（或1.1.1.1、2.1.1.1……）”，不再使用五级以下标题。两类标题不要混编。
-  set heading(depth: 4, numbering: if numbering == "一" {
-    numbly("{1:一}", "（{2:一}）", "{3}", "（{4}）")
-  } else { "1.1.1.1 "})
+  set heading(numbering: numbering)
   show heading: set text(weight: "regular")
 
-  // 章和节标题段前段后各空0.5行
-  // 行理解为当前行距，故在 "1.5倍行距" 的基准上再算一半，也即 "0.75倍行距"
-  show heading.where(level: 1): set block(above: 1em * 120% * 0.75, below: 1em * 120% * 0.75)
-  show heading.where(level: 2): set block(above: 1em * 120% * 0.75, below: 1em * 120% * 0.75)
+  // 章标题前空 0.5 行，后空 1 行
+  // 节标题段前空 1 行，后各空 0.5 行
+  // 行理解为当前行距，1 行为 "1.5倍行距"。
+  show heading.where(level: 1): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 1.5 * 1.5)
+  show heading.where(level: 2): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
+  show heading.where(level: 3): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
+  show heading.where(level: 4): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
 
   // 目录标题 黑体三号居中
   // 正文各章标题 黑体三号居中
@@ -147,11 +139,9 @@
   // 正文各节一级标题 黑体四号左对齐
   show heading.where(level: 2): set text(font: 字体.黑体, size: 字号.四号)
 
-  // 正文各节二级及以下标题 宋体小四号加粗左对齐空两格
-  show heading.where(level: 3): set text(font: 字体.宋体, size: 字号.小四, weight: "bold")
-  show heading.where(level: 4): set text(font: 字体.宋体, size: 字号.小四, weight: "bold")
-  show heading.where(level: 3): it => pad(left: 2em, it)
-  show heading.where(level: 4): it => pad(left: 2em, it)
+  // 正文各节二级及以下标题 黑体小四号
+  show heading.where(level: 3): set text(font: 字体.黑体, size: 字号.小四)
+  show heading.where(level: 4): set text(font: 字体.黑体, size: 字号.小四)
 
   // 遇到一级标题重置图、表、公式编号计数
   show heading: i-figured.reset-counters
@@ -179,39 +169,17 @@
     pagebreak(weak: true, to: if twoside { "odd" })
   }
 
-  titlepage(info: thesis-info)
-  pagebreak(weak: true, to: if twoside { "odd" })
-
-  declaration()
-  pagebreak(weak: true, to: if twoside { "odd" })
-
-  // 摘要开始至绪论之前以大写罗马数字（Ⅰ，Ⅱ，Ⅲ…）单独编连续码
-  // 页眉与页脚 宋体五号居中
-  set page(header: context {
-      set text(font: 字体.宋体, size: 字号.五号, stroke: sysucolor.green)
-      set align(center)
-      let loc = here()
-      let cur-heading = current-heading(level: 1, loc)
-      let first-level-heading = heading-display(active-heading(level: 1, loc))
-
-      if cur-heading != none {
-        thesis-info.title.join("")
-      } else if not twoside or calc.rem(loc.page(), 2) == 1 {
-        first-level-heading
-      } else {
-        thesis-info.title.join("")
-      }
-      line(length: 200%, stroke: 0.1em + sysucolor.green);
-  })
-  set page(numbering: "I")
-  counter(page).update(1)
-
-  abstract-page()
+  abstract-page(info: thesis-info)
   pagebreak(weak: true, to: if twoside { "odd" })
   abstract-en-page()
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  outline()
+  set page(numbering: "1")
+  counter(page).update(1)
+
+  outline(
+    indent: 2em,
+  )
   pagebreak(weak: true, to: if twoside { "odd" })
 
   // 绪论开始至论文结尾，以阿拉伯数字（1，2，3…）编连续码
@@ -219,7 +187,7 @@
   counter(page).update(1)
 
   // 正文段落按照中文惯例缩进两格
-  set par(first-line-indent: (amount: 2em, all: true))
+  set par(first-line-indent: (amount: 2em, all: true), justify: true)
 
   show heading.where(level: 1): it => {
     pagebreak(weak: true)
@@ -250,7 +218,7 @@
 
 // 以下为校对用测试 preview 页面
 #show: doc.with(
-  bibliography: bibliography.with("/template/ref.bib"),
+  bibliography: bibliography.with("../../template/ref.bib"),
   pages: (
     appendix: true
   )
@@ -265,7 +233,7 @@
 写一下测试的内容 @chapter1-img，章节标题 @chapter1[("第一章")]
 
 #figure(
-  image("/template/images/sysu_logo.svg", width: 20%),
+  image("../../assets/vi/gzhu.png", width: 20%),
   caption: [图片测试],
 ) <chapter1-img>
 
@@ -277,6 +245,6 @@
 在附录中引用图片 @appendix-img, 以及附录章节标题 @appendix[#numbering("附录A")]
 
 #figure(
-  image("/template/images/sysu_logo.svg", width: 20%),
+  image("../../assets/vi/gzhu.png", width: 20%),
   caption: [图片测试],
 ) <appendix-img>

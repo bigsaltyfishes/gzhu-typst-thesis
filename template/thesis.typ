@@ -13,14 +13,14 @@
   thesis-info: (
     // 论文标题，将展示在封面、扉页与页眉上
     // 多行标题请使用数组传入 `("thesis title", "with part next line")`，或使用换行符：`"thesis title\nwith part next line"`
-    title: ("基于 Typst 的", "中山大学学位论文模板"),
-    title-en: "A Typst Template for SYSU thesis",
+    title: "广州大学大学学位论文模板",
+    title-en: "A Typst Template for GZHU thesis",
 
     // 论文作者信息：学号、姓名、院系、专业、指导老师
     author: (
       sno: "1xxxxxxx",
       name: "张三",
-      grade: "2024",
+      class: "某班级",
       department: "某学院",
       major: "某专业",
     ),
@@ -41,7 +41,7 @@
     cover: true,
 
     // 附录部分为可选。设置为 true 后，会在参考文献部分与致谢部分之间插入附录部分。
-    appendix: true,
+    appendix: false,
   ),
 
   // 论文内文各大部分的标题用“一、二…… （或1、2……）”， 次级标题为“（一）、（二）……（或
@@ -108,7 +108,7 @@
 ]))
 
 #figure(
-  image("images/sysu_logo.svg", width: 20%),
+  image("assets/vi/gzhu.png"),
   caption: [图片测试],
 ) <sysu-logo>
 
@@ -171,7 +171,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 #figure(
-  image("images/sysu_logo.svg", width: 20%),
+  image("assets/vi/gzhu.png", width: 20%),
   caption: [图片测试],
 ) <appendix-img>
 

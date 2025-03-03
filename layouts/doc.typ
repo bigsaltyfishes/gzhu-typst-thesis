@@ -10,23 +10,17 @@
 ) = {
   // 1.  默认参数
   info = (
-    title: ("基于 Typst 的", "中山大学学位论文模板"),
+    title: "基于 Typst 的 广州大学学位论文模板",
     author: "张三",
   ) + info
 
-  // 2.  对参数进行处理
-  // 2.1 如果是字符串，则使用换行符将标题分隔为列表
-  if type(info.title) == str {
-    info.title = info.title.split("\n")
-  }
-
-  // 3.  基本的样式设置
+  // 2.  基本的样式设置
   set text(fallback: fallback, lang: lang)
   set page(margin: margin)
 
-  // 4.  PDF 元信息
+  // 3.  PDF 元信息
   set document(
-    title: (("",)+ info.title).sum(),
+    title: info.title,
     author: info.author,
   )
 
