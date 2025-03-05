@@ -200,7 +200,7 @@
   // 参考文献
   {
     // 参考文献内容 宋体五号
-    set text(font: 字体.宋体, size: 字号.五号)
+    set text(font: 字体.宋体, size: 字号.小四)
     bilingual-bibliography(bibliography: bibliography, full: true)
   }
   pagebreak(weak: true, to: if twoside { "odd" })
