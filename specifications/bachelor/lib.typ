@@ -54,7 +54,7 @@
   // 论文内文各大部分的标题用“一、二…… （或1、2……）”， 次级标题为“（一）、（二）……（或
   // 1.1、2.1……）”，三级标题用“1、2……（或1.1.1、2.1.1……）”，四级标题用“（1）、（2）……
   //（或1.1.1.1、2.1.1.1……）”，不再使用五级以下标题。两类标题不要混编。
-  numbering: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
+  numbering_main: custom-numbering.with(first-level: "第一章 ", depth: 4, "1.1 "),
 
   // 双面模式，会加入空白页，便于打印
   twoside: false,
@@ -103,12 +103,10 @@
   // 纸张大小：A4。页边距：上边距25 mm，下边距20 mm，左右边距均为30 mm。
   set page(paper: "a4", margin: (left: 3.0cm, right: 2.6cm, top: 2.54cm, bottom: 2.54cm))
 
-  // 行距：1.5倍行距
-  // 行距理解为 word 默认行距（1em * 120%）的1.5倍，由于目前尚未实现 [line-height 模
-  // 型]，故换算成行间距（leading）
-  //
+  // 行距：固定为 23pt
+  // 因此设置为 23pt - 1em，即 23pt - 11pt = 12pt
   // [line-height 模型]: https://github.com/typst/typst/issues/4224
-  set par(leading: 1em * 120% * 1.5 - 1em)
+  set par(leading: 23pt - 1em)
 
   // 目录内容 宋体小四号
   // 正文内容 宋体小四号
@@ -118,16 +116,16 @@
   // 论文内文各大部分的标题用“一、二…… （或1、2……）”， 次级标题为“（一）、（二）……（或
   // 1.1、2.1……）”，三级标题用“1、2……（或1.1.1、2.1.1……）”，四级标题用“（1）、（2）……
   //（或1.1.1.1、2.1.1.1……）”，不再使用五级以下标题。两类标题不要混编。
-  set heading(numbering: numbering)
+  set heading(numbering: numbering_main)
   show heading: set text(weight: "regular")
 
   // 章标题前空 0.5 行，后空 1 行
   // 节标题段前空 1 行，后各空 0.5 行
   // 行理解为当前行距，1 行为 "1.5倍行距"。
   show heading.where(level: 1): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 1.5 * 1.5)
-  show heading.where(level: 2): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
-  show heading.where(level: 3): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
-  show heading.where(level: 4): set block(above: 1em * 120% * 1.5, below: 1em * 120% * 0.75)
+  show heading.where(level: 2): set block(above: 1em * 120% * 1.5, below: 23pt - 0.5em)
+  show heading.where(level: 3): set block(above: 1em * 120% * 1.5, below: 23pt - 0.5em)
+  show heading.where(level: 4): set block(above: 1em * 120% * 1.5, below: 23pt - 0.5em)
 
   // 目录标题 黑体三号居中
   // 正文各章标题 黑体三号居中
@@ -136,18 +134,24 @@
   show heading.where(level: 1): set text(font: 字体.黑体, size: 字号.三号)
   show heading.where(level: 1): set align(center)
 
-  // 正文各节一级标题 黑体四号左对齐
-  show heading.where(level: 2): set text(font: 字体.黑体, size: 字号.四号)
-
-  // 正文各节二级及以下标题 黑体小四号
+  // 正文各节一级标题以下 黑体小四号左对齐
+  show heading.where(level: 2): set text(font: 字体.黑体, size: 字号.小四)
   show heading.where(level: 3): set text(font: 字体.黑体, size: 字号.小四)
   show heading.where(level: 4): set text(font: 字体.黑体, size: 字号.小四)
 
   // 遇到一级标题重置图、表、公式编号计数
   show heading: i-figured.reset-counters
   show figure: i-figured.show-figure
-  show math.equation: i-figured.show-equation
+  show math.equation: i-figured.show-equation.with(
+    numbering: (..n) => text(
+      font: 字体.宋体,
+      numbering("(1.1)",..n)
+    )
+  )
 
+  // 图片自动悬浮
+  // set figure(placement: auto)
+  
   // 图题、表题 宋体五号
   show figure.caption: set text(font: 字体.宋体, size: 字号.五号)
 
@@ -168,17 +172,20 @@
     cover(info: thesis-info)
     pagebreak(weak: true, to: if twoside { "odd" })
   }
-
+  
   abstract-page(info: thesis-info)
   pagebreak(weak: true, to: if twoside { "odd" })
   abstract-en-page()
   pagebreak(weak: true, to: if twoside { "odd" })
 
-  set page(numbering: "1")
+  // 目录使用罗马数字标号
+  set page(numbering: "I")
   counter(page).update(1)
 
+  // 目录最深为三级标题
   outline(
     indent: 2em,
+    depth: 3
   )
   pagebreak(weak: true, to: if twoside { "odd" })
 

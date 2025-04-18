@@ -37,7 +37,7 @@
   // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
   // 这一行分别是「Arial（无衬线英文字体）」、「思源黑体（简体）」、「思源黑体」、「黑体（Windows）」、「黑体（MacOS）」
   黑体: (
-    (name: "Arial", covers: "latin-in-cjk"),
+    (name: "Times New Roman", covers: "latin-in-cjk"),
     "SimHei",
     "Source Han Sans HW SC",
     "Source Han Sans",

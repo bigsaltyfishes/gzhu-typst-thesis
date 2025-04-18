@@ -109,22 +109,6 @@
   text(size: 字号.一号, font: 字体.楷体, weight: "bold")[#fakebold[本~~科~~生~~毕~~业~~论~~文（设计）]]
   v(2.5cm)
 
-  // 教务处标记
-  place(
-    dx: -2em,
-    dy: 6.8cm,
-    box(
-      stack(
-        dir: ttb,
-        spacing: 16pt,
-        {text(font: 字体.楷体, size: 字号.三号, "教")},
-        {text(font: 字体.楷体, size: 字号.三号, "务")},
-        {text(font: 字体.楷体, size: 字号.三号, "处")},
-        {text(font: 字体.楷体, size: 字号.三号, "制")}
-      )
-    )
-  )
-  
   // 学生与指导老师信息
   // set align(center + bottom)
   v(76pt)
@@ -149,5 +133,6 @@
     info-key("完成日期"),
     info-long-value("submit-date", info.submit-date),
   ))
-  v(2em)
+  v(5em)
+  text(size: 字号.三号, font: 字体.楷体, weight: "bold")[教 务 处 制]
 }
