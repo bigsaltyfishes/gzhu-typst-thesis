@@ -152,6 +152,9 @@
     )
   )
 
+  // 代码使用 Times New Roman 字体
+  show raw: set text(font: 字体.宋体, size: 字号.小四)
+
   // 图片自动悬浮
   // set figure(placement: auto)
   
