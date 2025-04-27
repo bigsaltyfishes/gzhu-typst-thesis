@@ -29,7 +29,7 @@
 
   [
     #align(center)[
-      #text(font: 字体.黑体, size: 字号.三号, info.title)
+      #text(font: 字体.黑体, size: 字号.三号, weight: "bold", info.title)
       #linebreak()
       #text(info.author.class + " " + info.author.name)
       #linebreak()

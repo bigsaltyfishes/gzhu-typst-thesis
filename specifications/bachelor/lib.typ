@@ -117,7 +117,10 @@
   // 1.1、2.1……）”，三级标题用“1、2……（或1.1.1、2.1.1……）”，四级标题用“（1）、（2）……
   //（或1.1.1.1、2.1.1.1……）”，不再使用五级以下标题。两类标题不要混编。
   set heading(numbering: numbering_main)
-  show heading: set text(weight: "regular")
+
+  // 标题黑体加粗
+  show: show-cn-fakebold
+  show heading: set text(weight: "bold")
 
   // 章标题前空 0.5 行，后空 1 行
   // 节标题段前空 1 行，后各空 0.5 行
