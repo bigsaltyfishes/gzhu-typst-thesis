@@ -1,5 +1,6 @@
 // 利用 state 捕获摘要参数，并通过 context 传递给渲染函数
 #import "../../utils/style.typ": 字号, 字体
+#import "../../utils/custom-cuti.typ": *
 
 #let abstract-en-keywords = state("keywords-en", (
   "Guangzhou University",
@@ -30,13 +31,13 @@ This is abstract in English. 外文摘要以200个左右实词为宜，摘要内
 
   [
     #set par(justify: true)
-    #text(size: 字号.四号)[*ABSTRACT　*]#context abstract-en-content.final()
+    #text(size: 字号.四号)[#fakebold()[*ABSTRACT*]　]#context abstract-en-content.final()
 
     #v(1em)
 
     // 摘要正文下方另起一行顶格打印“关键词”款项，后加冒号，多个关键词以逗号分隔。
     // （标题“Keywords”加粗）
     #set par(justify: true)
-    #text(size: 字号.四号)[*KEY WORDS　*]#context abstract-en-keywords.final().join(", ")
+    #text(size: 字号.四号)[#fakebold()[*KEY WORDS*]　]#context abstract-en-keywords.final().join(", ")
   ]
 }
