@@ -100,8 +100,8 @@
     // keywords: thesis-info.abstract.keywords,
   )
 
-  // 纸张大小：A4。页边距：上边距25 mm，下边距20 mm，左右边距均为30 mm。
-  set page(paper: "a4", margin: (left: 3.0cm, right: 2.6cm, top: 2.54cm, bottom: 2.54cm))
+  // 纸张大小：A4。页边距：上边距20 mm，下边距20 mm，左边距均为27 mm，右边距25 mm。
+  set page(paper: "a4", margin: (left: 2.7cm, right: 2.5cm, top: 2cm, bottom: 2cm))
 
   // 行距：固定为 23pt
   // 因此设置为 23pt - 1em，即 23pt - 11pt = 12pt
