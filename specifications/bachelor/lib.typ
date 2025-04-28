@@ -104,9 +104,9 @@
   set page(paper: "a4", margin: (left: 2.7cm, right: 2.5cm, top: 2cm, bottom: 2cm))
 
   // 行距：固定为 23pt
-  // 因此设置为 23pt - 1em，即 23pt - 11pt = 12pt
+  // 因此设置为 23pt - 0.75em
   // [line-height 模型]: https://github.com/typst/typst/issues/4224
-  set par(leading: 23pt - 1em)
+  set par(leading: 23pt - 0.75em)
 
   // 目录内容 宋体小四号
   // 正文内容 宋体小四号
