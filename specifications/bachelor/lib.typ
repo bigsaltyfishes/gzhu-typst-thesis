@@ -155,8 +155,8 @@
   // 代码使用 Times New Roman 字体
   show raw: set text(font: 字体.宋体, size: 字号.小四)
 
-  // 图片自动悬浮
-  // set figure(placement: auto)
+  // 引文序号字体使用 TeX Gyre Termes
+  show cite: set text(font: "TeX Gyre Termes")
   
   // 图题、表题 宋体五号
   show figure.caption: set text(font: 字体.宋体, size: 字号.五号)
